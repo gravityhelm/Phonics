@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elie's Reading Cards</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Elie's Reading Cards</h1>
+
+  <select id="levelSelect" aria-label="Phonics level">
+    <option value="CVC">CVC — cat, dog, sun</option>
+    <option value="CCVC">CCVC — frog, crab, slip</option>
+    <option value="CVCC">CVCC — lamp, belt, jump</option>
+    <option value="Silent-E">Silent-E — cake, bike, rope</option>
+    <option value="Vowel Teams">Vowel Teams — rain, boat, feet</option>
+    <option value="R-Controlled">R-Controlled — star, bird, horn</option>
+  </select>
+
+  <div class="card-wrapper">
+    <div class="card-inner" id="cardInner" role="button" aria-label="Flash card, tap to flip">
+
+      <div class="card-face card-front">
+        <div class="word-display" id="wordDisplay"></div>
+        <div class="tap-hint">tap to flip</div>
+      </div>
+
+      <div class="card-face card-back">
+        <img id="backImage" src="" alt="">
+        <div id="backEmoji" aria-hidden="true"></div>
+        <div id="backWord"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous card">&#9664; Prev</button>
+    <span id="counter" aria-live="polite"></span>
+    <button class="nav-btn" id="nextBtn" aria-label="Next card">Next &#9654;</button>
+  </div>
+
+  <button id="shuffleBtn">&#128256; Shuffle</button>
+
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

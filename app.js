@@ -1,5 +1,5 @@
-// Get a free API key at https://pixabay.com/api/docs/ (free account, no credit card)
-const PIXABAY_KEY = '55908038-23a5ce2e9fbd6c6af8f921d40';
+// Get a free API key at https://www.pexels.com/api/ (free account, no credit card)
+const PEXELS_KEY = 'RvfLnZVr7wEyPYo1uBUa5LukVzhEp0yFxm5wPerZz8Zsyh1Mh3NzLgaY';
 
 // Emoji shown when Pixabay has no result for a word
 const EMOJI = {
@@ -92,19 +92,19 @@ async function fetchImage(word) {
   if (imageCache[word] === null) { showFallback(word); return; }
   if (imageCache[word])          { showImage(imageCache[word]); return; }
 
-  if (!PIXABAY_KEY || PIXABAY_KEY === 'YOUR_KEY_HERE') {
+  if (!PEXELS_KEY || PEXELS_KEY === 'YOUR_KEY_HERE') {
     showFallback(word);
     return;
   }
 
   try {
-    const url = `https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(word)}&image_type=photo&safesearch=true&per_page=3`;
-    const res  = await fetch(url);
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(word)}&per_page=1&orientation=square`;
+    const res  = await fetch(url, { headers: { Authorization: PEXELS_KEY } });
     const data = await res.json();
-    const hit  = data.hits?.[0];
-    if (hit) {
-      imageCache[word] = hit.webformatURL;
-      showImage(hit.webformatURL);
+    const photo = data.photos?.[0];
+    if (photo) {
+      imageCache[word] = photo.src.medium;
+      showImage(photo.src.medium);
     } else {
       imageCache[word] = null;
       showFallback(word);

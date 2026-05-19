@@ -166,11 +166,28 @@ function buildLevelPicker() {
     levelItem.className = 'level-option';
     levelItem.dataset.level = level;
 
+    // Header row: level name + expand arrow
+    const header = document.createElement('div');
+    header.className = 'level-option-header';
+
     const levelLabel = document.createElement('button');
     levelLabel.className = 'level-option-label';
+    levelLabel.dataset.level = level;
     levelLabel.textContent = level;
-    levelItem.appendChild(levelLabel);
+    header.appendChild(levelLabel);
 
+    if (subs) {
+      const expandBtn = document.createElement('button');
+      expandBtn.className = 'level-expand-btn';
+      expandBtn.dataset.level = level;
+      expandBtn.setAttribute('aria-label', `Show ${level} sub-groups`);
+      expandBtn.textContent = '▶';
+      header.appendChild(expandBtn);
+    }
+
+    levelItem.appendChild(header);
+
+    // Sub-groups menu
     if (subs) {
       const subMenu = document.createElement('div');
       subMenu.className = 'sublevel-menu';
@@ -197,35 +214,45 @@ function buildLevelPicker() {
 document.getElementById('levelPicker').addEventListener('click', (e) => {
   const trigger = e.target.closest('#levelDropdownTrigger');
   const levelLabel = e.target.closest('.level-option-label');
+  const expandBtn = e.target.closest('.level-expand-btn');
   const subBtn = e.target.closest('.sublevel-option');
 
-  // Toggle dropdown
+  // Toggle main dropdown
   if (trigger) {
     const dropdown = document.getElementById('levelDropdown');
     dropdown.hidden = !dropdown.hidden;
     return;
   }
 
-  // Click on a level label
+  // Click level name: load full level
   if (levelLabel) {
-    const levelItem = levelLabel.closest('.level-option');
-    const level = levelItem.dataset.level;
-    const subs = SUBGROUPS?.[level];
+    const level = levelLabel.dataset.level;
+    loadLevel(level);
+    document.getElementById('levelDropdownTrigger').textContent = level;
+    document.getElementById('levelDropdown').hidden = true;
+    return;
+  }
 
-    if (subs) {
-      // Has sub-groups: toggle submenu
-      const subMenu = levelItem.querySelector('.sublevel-menu');
-      subMenu.hidden = !subMenu.hidden;
-    } else {
-      // No sub-groups: load level directly
-      loadLevel(level);
-      document.getElementById('levelDropdownTrigger').textContent = level;
-      document.getElementById('levelDropdown').hidden = true;
+  // Click expand arrow: toggle sub-groups
+  if (expandBtn) {
+    const level = expandBtn.dataset.level;
+    const levelItem = expandBtn.closest('.level-option');
+    const subMenu = levelItem.querySelector('.sublevel-menu');
+    const isOpen = !subMenu.hidden;
+
+    // Close all submenus
+    document.querySelectorAll('.sublevel-menu').forEach(m => m.hidden = true);
+    document.querySelectorAll('.level-expand-btn').forEach(b => b.classList.remove('open'));
+
+    // Toggle this one
+    if (!isOpen) {
+      subMenu.hidden = false;
+      expandBtn.classList.add('open');
     }
     return;
   }
 
-  // Click on a sub-level
+  // Click sub-level: load sub-group
   if (subBtn) {
     const level = subBtn.dataset.level;
     const sub = subBtn.dataset.sub;

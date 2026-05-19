@@ -161,6 +161,22 @@ h1 {
 
 #shuffleBtn:hover { background: var(--bg); }
 
+/* ── Sentence mode: smaller font to fit full sentences ── */
+body.sentence-mode .word-display {
+  font-size: clamp(1.2rem, 3.8vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 0 16px;
+  line-height: 1.5;
+}
+
+body.sentence-mode #backWord {
+  font-size: 0.85rem;
+  padding: 0 12px;
+  text-align: center;
+}
+
 /* ── Landscape on touch devices (phones/tablets) only ── */
 @media (orientation: landscape) and (pointer: coarse) {
   body {

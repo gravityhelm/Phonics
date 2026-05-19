@@ -1,22 +1,91 @@
 const EMOJI = {
-  cat:'🐱', dog:'🐶', hen:'🐔', pig:'🐷', cup:'☕', bed:'🛏️', log:'🪵',
-  map:'🗺️', hot:'🔥', sun:'☀️', bug:'🐛', hat:'🎩', run:'🏃', sit:'🪑',
-  fox:'🦊', pen:'✏️', tin:'🥫', mop:'🧹', jet:'✈️', big:'🔭',
-  frog:'🐸', crab:'🦀', slip:'🧊', flag:'🚩', drip:'💧', clam:'🦪',
-  step:'👣', grip:'✊', plan:'📋', skin:'🧴', sled:'🛷', brim:'🎩',
-  crop:'🌾', flat:'📐', spin:'🌀',
+  // CVC
+  cat:'🐱', bat:'🦇', rat:'🐭', mop:'🧹', hat:'🎩', van:'🚐', can:'🥫',
+  fan:'🌀', man:'👨', pan:'🍳', bag:'👜', tag:'🏷️', jam:'🍯', ham:'🍖',
+  cap:'🧢', lap:'🦵', map:'🗺️', nap:'😴', pen:'✏️', sat:'🪑',
+  bed:'🛏️', red:'🔴', hen:'🐔', ten:'🔢', net:'🥅', pet:'🐾', jet:'✈️',
+  web:'🕸️', leg:'🦵', men:'👬', den:'🏠', set:'🎲', wet:'💧', vet:'🏥',
+  pig:'🐷', big:'🔭', wig:'💇', dig:'⛏️', bin:'🗑️', pin:'📌', tin:'🥫',
+  win:'🏆', hit:'⚾', sit:'🪑', lip:'💋', tip:'💡', zip:'🤐', dog:'🐶',
+  log:'🪵', fox:'🦊', hot:'🔥', hop:'🐇', top:'🎯', pot:'🫙', cup:'☕',
+  bug:'🐛', sun:'☀️', run:'🏃',
+  // CCVC
+  clam:'🦪', clap:'👏', clip:'📎', clan:'👥', crab:'🦀', crop:'🌾',
+  cram:'📚', drip:'💧', drop:'💧', drum:'🥁', flat:'📐', flag:'🚩',
+  flip:'🤸', frog:'🐸', glad:'😊', glum:'😔', grip:'✊', grin:'😁',
+  grit:'💪', grab:'🤲', plan:'📋', plum:'🍑', plug:'🔌', prop:'🎬',
+  snag:'🪝', snap:'📸', snip:'✂️', snug:'🤗', skip:'🎵', skid:'🚗',
+  slip:'🧊', sled:'🛷', spin:'🌀', spit:'💦', spot:'🐆', step:'👣',
+  stem:'🌷', stop:'🛑', stun:'⚡', swim:'🏊', trip:'🧳', trim:'✂️',
+  trap:'🪤', trot:'🐎', trek:'🥾', twin:'👯', twig:'🌿', brim:'🎩',
+  brag:'💬', tram:'🚋', slug:'🐌',
+  // CVCC
   lamp:'💡', belt:'👔', fist:'✊', pond:'🏞️', mask:'😷', dusk:'🌆',
   melt:'🫠', jump:'⬆️', hand:'🖐️', wind:'💨', nest:'🐣', camp:'⛺',
-  list:'📋', golf:'⛳', dump:'🗑️',
+  list:'📋', golf:'⛳', dump:'🗑️', band:'🎸', bend:'🌊', bond:'🔗',
+  land:'🏞️', sand:'⏳', send:'📨', fund:'💰', find:'🔍', kind:'❤️',
+  mind:'🧠', best:'🥇', bust:'💪', dust:'🌪️', fast:'⚡', gust:'💨',
+  just:'⚖️', last:'🏁', must:'💪', rest:'😴', bump:'💥', damp:'💧',
+  hump:'🐪', limp:'🦽', pump:'⛽', ramp:'🛝', felt:'🤲', salt:'🧂',
+  tilt:'↗️', milk:'🥛', silk:'🧣', task:'✅', tusk:'🐘', risk:'⚠️',
+  gift:'🎁', lift:'🛗', soft:'🧸', rent:'🏠', tent:'⛺', mint:'🌿',
+  hunt:'🏹', hint:'💡', dent:'🚗', vest:'🦺', west:'🧭',
+  // Silent-E
   cake:'🎂', bike:'🚲', rope:'🪢', cube:'📦', pine:'🌲', mole:'🐭',
   lane:'🛣️', dune:'🏜️', kite:'🪁', vote:'🗳️', tune:'🎵', gate:'🚪',
-  home:'🏠', rule:'📏', hive:'🐝',
+  home:'🏠', rule:'📏', hive:'🐝', bake:'🎂', lake:'🏞️', make:'🔨',
+  take:'✋', wake:'⏰', came:'👋', game:'🎮', name:'📛', same:'🪞',
+  wave:'🌊', base:'⚾', race:'🏁', date:'📅', late:'⏰', cape:'🦸',
+  like:'❤️', hike:'🥾', wide:'↔️', hide:'🙈', ride:'🎠', dine:'🍽️',
+  fine:'✅', mine:'⛏️', vine:'🌿', tire:'🚗', hope:'🙏', note:'📝',
+  bone:'🦴', cone:'🍦', code:'💻', coke:'🥤', hole:'🕳️', pole:'🎣',
+  dose:'💊', rose:'🌹', cute:'🥰', mute:'🔇', fume:'💨', tube:'🧪',
+  rude:'😤', lure:'🎣', cure:'💊', pure:'✨', page:'📄', wade:'🌊',
+  // Vowel Teams
   rain:'🌧️', boat:'⛵', feet:'🦶', goat:'🐐', read:'📖', coat:'🧥',
   heat:'🌡️', sail:'⛵', beam:'🔦', seem:'🤔', tail:'🐈', road:'🛣️',
-  seed:'🌱', leaf:'🍃', load:'📦',
+  seed:'🌱', leaf:'🍃', load:'📦', day:'📅', bay:'⛵', hay:'🌾',
+  lay:'🛏️', pay:'💰', say:'💬', way:'🛣️', play:'🎮', stay:'🏠',
+  tray:'🫙', clay:'🏺', mail:'📬', pail:'🪣', rail:'🚂', hail:'🧊',
+  bean:'🫘', deal:'🤝', heal:'🩹', lean:'💪', meat:'🥩', neat:'✨',
+  seal:'🦭', team:'👥', bee:'🐝', see:'👁️', tree:'🌳', feel:'❤️',
+  heel:'👟', need:'❤️', week:'📅', soap:'🧼', toad:'🐸', foam:'🫧',
+  oak:'🌳', toast:'🍞', book:'📖', cook:'👨‍🍳', foot:'🦶', look:'👀',
+  moon:'🌙', pool:'🏊', room:'🏠', tool:'🔧', wood:'🪵', zoo:'🦁',
+  // R-Controlled
   star:'⭐', bird:'🐦', horn:'📯', fern:'🌿', curl:'💇', bark:'🐕',
   fort:'🏰', burn:'🔥', dirt:'🌱', corn:'🌽', farm:'🚜', girl:'👧',
-  pork:'🥩', herb:'🌿', surf:'🏄',
+  pork:'🥩', herb:'🌿', surf:'🏄', bar:'🍫', car:'🚗', far:'🌅',
+  jar:'🫙', tar:'⬛', barn:'🏚️', card:'🃏', dark:'🌙', hard:'💪',
+  harm:'⚠️', mark:'✏️', park:'🌳', part:'🧩', scar:'⚡', yarn:'🧶',
+  her:'👩', herd:'🐄', term:'📚', verb:'📝', sir:'🎩', stir:'🥄',
+  firm:'🏢', born:'👶', cord:'🔌', ford:'🚙', fork:'🍴', form:'📄',
+  more:'➕', port:'⚓', sort:'📊', torn:'😤', word:'📝', work:'💼',
+  worn:'👕', norm:'📏', fur:'🐾', hurt:'🤕', turn:'🔄', purr:'🐱',
+  yard:'🏡', lark:'🐦', mart:'🏪', harp:'🎵', worm:'🪱', tarp:'⛺',
+};
+
+const SENTENCE_EMOJI = {
+  "The cat sat.":'🐱',      "A dog ran.":'🐶',
+  "The hen hops.":'🐔',     "A pig is big.":'🐷',
+  "The sun is hot.":'☀️',   "A bug is red.":'🐛',
+  "I see a cat.":'🐱',      "I can hop.":'🐇',
+  "The fox ran.":'🦊',      "A hat is red.":'🎩',
+  "I am big.":'💪',         "The rat ran.":'🐭',
+  "I see a dog.":'🐶',      "A fat cat sat.":'🐱',
+  "The cup is big.":'☕',   "I can run.":'🏃',
+  "The dog digs.":'🐶',     "I see a hen.":'🐔',
+  "A wet dog.":'🐶',        "The pig digs.":'🐷',
+  "I can dig.":'⛏️',        "A bat can fly.":'🦇',
+  "The man ran.":'👨',      "I see a bug.":'🐛',
+  "A big red bag.":'👜',    "The cub sits.":'🐻',
+  "I can sit.":'🪑',        "A hen and a pig.":'🐔',
+  "The bug is in it.":'🐛', "I see the sun.":'☀️',
+  "A cat and a dog.":'🐱',  "The map is big.":'🗺️',
+  "I can jump.":'⬆️',       "The fox can run.":'🦊',
+  "I see a red hat.":'🎩',  "A dog can sit.":'🐶',
+  "I am a kid.":'👦',       "A cat ran fast.":'🐱',
+  "The hen sat down.":'🐔', "I can see it.":'👁️',
 };
 
 let currentLevel = 'CVC';
@@ -50,7 +119,7 @@ function showCard(i) {
 }
 
 function showEmoji(word) {
-  const emoji = EMOJI[word] ?? '❓';
+  const emoji = SENTENCE_EMOJI[word] ?? EMOJI[word] ?? '❓';
   backEmoji.classList.remove('bounce');
   void backEmoji.offsetWidth;
   backEmoji.textContent = emoji;
@@ -62,6 +131,7 @@ function loadLevel(level) {
   currentLevel = level;
   deck = [...LEVELS[level]];
   index = 0;
+  document.body.classList.toggle('sentence-mode', level === 'Sentences');
   showCard(0);
 }
 

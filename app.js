@@ -307,7 +307,8 @@ document.getElementById('prevBtn').addEventListener('click', (e) => {
 
 document.getElementById('nextBtn').addEventListener('click', (e) => {
   e.stopPropagation();
-  index = (index + 1) % deck.length;
+  deck = shuffle([...deck]);
+  index = Math.floor(Math.random() * deck.length);
   showCard(index);
 });
 

@@ -261,19 +261,8 @@ h1 {
 }
 
 #shuffleBtn {
-  font-size: 0.9rem;
-  padding: 9px 16px;
-  border-radius: 10px;
-  border: 1px solid #d1d5db;
-  background: white;
-  color: #374151;
-  cursor: pointer;
-  font-weight: 600;
-  font-family: inherit;
-  transition: background 0.12s;
+  display: none;
 }
-
-#shuffleBtn:hover { background: #f9fafb; }
 
 /* ── Sentence mode ── */
 body.sentence-mode .word-display {

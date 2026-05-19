@@ -6,21 +6,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>Elie's Reading Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <h1>Elie's Reading Cards</h1>
 
-  <select id="levelSelect" aria-label="Phonics level">
-    <option value="CVC">CVC — cat, dog, sun</option>
-    <option value="CCVC">CCVC — frog, crab, slip</option>
-    <option value="CVCC">CVCC — lamp, belt, jump</option>
-    <option value="Silent-E">Silent-E — cake, bike, rope</option>
-    <option value="Vowel Teams">Vowel Teams — rain, boat, feet</option>
-    <option value="R-Controlled">R-Controlled — star, bird, horn</option>
-    <option value="Sentences">Sentences — The cat sat.</option>
-  </select>
+  <div class="level-picker" id="levelPicker" aria-label="Phonics level"></div>
 
   <div class="card-wrapper">
     <div class="card-inner" id="cardInner" role="button" aria-label="Flash card, tap to flip">

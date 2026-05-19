@@ -90,3 +90,66 @@ const LEVELS = {
     "I can see it."
   ]
 };
+
+const SUBGROUPS = {
+  "CVC": {
+    "-at":  ["cat","bat","rat","hat","sat"],
+    "-an":  ["can","fan","man","pan","van"],
+    "-ap":  ["cap","lap","map","nap"],
+    "-en":  ["hen","ten","men","den","pen"],
+    "-et":  ["net","pet","jet","set","wet","vet","get"],
+    "-ig":  ["pig","big","wig","dig"],
+    "-in":  ["bin","pin","tin","win"],
+    "-it":  ["bit","hit","sit"],
+    "-ip":  ["lip","tip","zip"],
+    "-op":  ["hop","top","mop"],
+    "-og":  ["dog","log"],
+    "-ag":  ["bag","tag"],
+    "-un":  ["sun","run"],
+  },
+  "CCVC": {
+    "cl-":  ["clam","clap","clip","clan","clog"],
+    "cr-":  ["crab","crop","cram"],
+    "dr-":  ["drip","drop","drum","drag","drab"],
+    "fl-":  ["flat","flag","flip","flop"],
+    "gr-":  ["grip","grin","grit","grab"],
+    "pl-":  ["plan","plop","plum","plug"],
+    "sn-":  ["snag","snap","snip","snug"],
+    "sk-":  ["skip","skim","skid"],
+    "sl-":  ["slip","sled","slim","slug"],
+    "sp-":  ["spin","spit","spot"],
+    "st-":  ["step","stem","stop","stub","stun"],
+    "tr-":  ["trip","trim","trap","trot","trek","tram"],
+    "tw-":  ["twin","twig"],
+    "br-":  ["brim","brag"],
+  },
+  "CVCC": {
+    "-nd":  ["hand","wind","band","bend","bond","land","sand","send","fund","find","kind","mind"],
+    "-st":  ["fist","best","bust","dust","fast","gust","just","last","lost","must","rest","vest","west"],
+    "-mp":  ["lamp","jump","camp","dump","bump","damp","hump","limp","pump","ramp"],
+    "-lt":  ["belt","melt","felt","salt","tilt"],
+    "-sk":  ["mask","dusk","task","tusk","risk"],
+    "-ft":  ["gift","lift","soft"],
+    "-nt":  ["rent","tent","mint","hunt","hint","dent"],
+  },
+  "Silent-E": {
+    "a-e":  ["cake","lane","gate","wave","base","race","date","late","cape","bake","lake","make","take","wake","came","game","name","same","page","wade"],
+    "i-e":  ["bike","kite","hive","like","hike","wide","hide","ride","dine","fine","mine","vine","tire"],
+    "o-e":  ["rope","mole","vote","home","hole","hope","note","bone","cone","code","coke","pole","dose","rose"],
+    "u-e":  ["cube","dune","tune","rule","cute","mute","fume","tube","rude","lure","cure","pure"],
+  },
+  "Vowel Teams": {
+    "ai/ay": ["rain","sail","tail","mail","pail","rail","hail","day","bay","hay","lay","pay","say","way","play","stay","tray","clay"],
+    "ea":    ["read","heat","beam","leaf","bean","deal","heal","lean","meat","neat","seal","team"],
+    "ee":    ["feet","seed","seem","bee","see","tree","feel","heel","need","week"],
+    "oa":    ["boat","coat","goat","road","load","toad","foam","oak","soap","toast"],
+    "oo":    ["book","cook","foot","look","moon","pool","room","tool","wood","zoo"],
+  },
+  "R-Controlled": {
+    "ar":   ["star","bark","farm","bar","car","far","jar","tar","barn","card","dark","hard","harm","mark","park","part","scar","yarn","yard","lark","mart","harp","tarp"],
+    "ir":   ["bird","dirt","girl","sir","stir","firm"],
+    "or":   ["horn","corn","fort","born","cord","ford","fork","form","port","sort","torn","word","work","worn","norm","worm"],
+    "er":   ["fern","herb","her","herd","term","verb"],
+    "ur":   ["curl","burn","surf","fur","hurt","turn","purr"],
+  },
+};

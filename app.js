@@ -98,7 +98,6 @@ const wordDisplay = document.getElementById('wordDisplay');
 const backEmoji   = document.getElementById('backEmoji');
 const backWord    = document.getElementById('backWord');
 const counter     = document.getElementById('counter');
-const levelSelect = document.getElementById('levelSelect');
 
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -127,13 +126,121 @@ function showEmoji(word) {
   backWord.textContent = word;
 }
 
+function setActiveLevel(level) {
+  // No longer used with dropdown interface
+}
+
 function loadLevel(level) {
   currentLevel = level;
   deck = [...LEVELS[level]];
   index = 0;
   document.body.classList.toggle('sentence-mode', level === 'Sentences');
+  setActiveLevel(level);
   showCard(0);
 }
+
+// ── Level picker dropdown ──
+
+function buildLevelPicker() {
+  const picker = document.getElementById('levelPicker');
+  picker.innerHTML = '';
+
+  // Main dropdown trigger
+  const trigger = document.createElement('button');
+  trigger.className = 'level-dropdown-trigger';
+  trigger.id = 'levelDropdownTrigger';
+  trigger.textContent = currentLevel;
+  trigger.setAttribute('aria-label', 'Select phonics level');
+  picker.appendChild(trigger);
+
+  // Dropdown menu
+  const dropdown = document.createElement('div');
+  dropdown.className = 'level-dropdown';
+  dropdown.id = 'levelDropdown';
+  dropdown.hidden = true;
+
+  Object.keys(LEVELS).forEach(level => {
+    const subs = SUBGROUPS?.[level];
+
+    const levelItem = document.createElement('div');
+    levelItem.className = 'level-option';
+    levelItem.dataset.level = level;
+
+    const levelLabel = document.createElement('button');
+    levelLabel.className = 'level-option-label';
+    levelLabel.textContent = level;
+    levelItem.appendChild(levelLabel);
+
+    if (subs) {
+      const subMenu = document.createElement('div');
+      subMenu.className = 'sublevel-menu';
+      subMenu.hidden = true;
+
+      Object.keys(subs).forEach(sub => {
+        const subBtn = document.createElement('button');
+        subBtn.className = 'sublevel-option';
+        subBtn.dataset.level = level;
+        subBtn.dataset.sub = sub;
+        subBtn.textContent = sub;
+        subMenu.appendChild(subBtn);
+      });
+
+      levelItem.appendChild(subMenu);
+    }
+
+    dropdown.appendChild(levelItem);
+  });
+
+  picker.appendChild(dropdown);
+}
+
+document.getElementById('levelPicker').addEventListener('click', (e) => {
+  const trigger = e.target.closest('#levelDropdownTrigger');
+  const levelLabel = e.target.closest('.level-option-label');
+  const subBtn = e.target.closest('.sublevel-option');
+
+  // Toggle dropdown
+  if (trigger) {
+    const dropdown = document.getElementById('levelDropdown');
+    dropdown.hidden = !dropdown.hidden;
+    return;
+  }
+
+  // Click on a level label
+  if (levelLabel) {
+    const levelItem = levelLabel.closest('.level-option');
+    const level = levelItem.dataset.level;
+    const subs = SUBGROUPS?.[level];
+
+    if (subs) {
+      // Has sub-groups: toggle submenu
+      const subMenu = levelItem.querySelector('.sublevel-menu');
+      subMenu.hidden = !subMenu.hidden;
+    } else {
+      // No sub-groups: load level directly
+      loadLevel(level);
+      document.getElementById('levelDropdownTrigger').textContent = level;
+      document.getElementById('levelDropdown').hidden = true;
+    }
+    return;
+  }
+
+  // Click on a sub-level
+  if (subBtn) {
+    const level = subBtn.dataset.level;
+    const sub = subBtn.dataset.sub;
+    currentLevel = level;
+    deck = [...SUBGROUPS[level][sub]];
+    index = 0;
+    document.body.classList.remove('sentence-mode');
+    showCard(0);
+    document.getElementById('levelDropdownTrigger').textContent = `${level} - ${sub}`;
+    document.getElementById('levelDropdown').hidden = true;
+    return;
+  }
+});
+
+// ── Swipe ──
 
 let touchStartX = 0, touchStartY = 0, swipeHandled = false;
 
@@ -155,11 +262,15 @@ document.addEventListener('touchend', (e) => {
   }
 }, { passive: true });
 
+// ── Card flip ──
+
 cardInner.addEventListener('click', () => {
   if (swipeHandled) { swipeHandled = false; return; }
   cardInner.classList.toggle('flipped');
   if (cardInner.classList.contains('flipped')) showEmoji(currentWord);
 });
+
+// ── Nav buttons ──
 
 document.getElementById('prevBtn').addEventListener('click', (e) => {
   e.stopPropagation();
@@ -174,11 +285,12 @@ document.getElementById('nextBtn').addEventListener('click', (e) => {
 });
 
 document.getElementById('shuffleBtn').addEventListener('click', () => {
-  deck = shuffle([...LEVELS[currentLevel]]);
+  deck = shuffle([...deck]);
   index = 0;
   showCard(0);
 });
 
-levelSelect.addEventListener('change', () => loadLevel(levelSelect.value));
+// ── Init ──
 
+buildLevelPicker();
 loadLevel('CVC');

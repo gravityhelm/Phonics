@@ -161,8 +161,8 @@ h1 {
 
 #shuffleBtn:hover { background: var(--bg); }
 
-/* ── Landscape: card fills the screen ── */
-@media (orientation: landscape) {
+/* ── Landscape on touch devices (phones/tablets) only ── */
+@media (orientation: landscape) and (pointer: coarse) {
   body {
     padding: 4px max(12px, env(safe-area-inset-left)) 4px max(12px, env(safe-area-inset-right));
     gap: 5px;

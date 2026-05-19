@@ -96,18 +96,9 @@ h1 {
   gap: 8px;
 }
 
-#backImage {
-  max-width: 68%;
-  max-height: 62%;
-  object-fit: contain;
-  border-radius: 10px;
-  display: none;
-}
-
 #backEmoji {
   font-size: clamp(5rem, 18vw, 9rem);
   line-height: 1;
-  display: none;
 }
 
 #backWord {
@@ -169,3 +160,27 @@ h1 {
 }
 
 #shuffleBtn:hover { background: var(--bg); }
+
+/* ── Landscape: card fills the screen ── */
+@media (orientation: landscape) {
+  body {
+    padding: 4px max(12px, env(safe-area-inset-left)) 4px max(12px, env(safe-area-inset-right));
+    gap: 5px;
+  }
+
+  h1 { display: none; }
+
+  /* Hide buttons — swipe handles navigation in landscape */
+  .nav-btn, #shuffleBtn { display: none; }
+
+  .card-wrapper {
+    /* Fill available height after level selector + counter + gaps */
+    height: calc(100dvh - 54px);
+    width: auto;
+    max-width: 90vw;
+    min-height: unset;
+  }
+
+  #levelSelect { font-size: 0.82rem; padding: 5px 10px; }
+  #counter { font-size: 0.85rem; }
+}

@@ -1,7 +1,3 @@
-// Get a free API key at https://www.pexels.com/api/ (free account, no credit card)
-const PEXELS_KEY = 'RvfLnZVr7wEyPYo1uBUa5LukVzhEp0yFxm5wPerZz8Zsyh1Mh3NzLgaY';
-
-// Emoji shown when Pixabay has no result for a word
 const EMOJI = {
   cat:'🐱', dog:'🐶', hen:'🐔', pig:'🐷', cup:'☕', bed:'🛏️', log:'🪵',
   map:'🗺️', hot:'🔥', sun:'☀️', bug:'🐛', hat:'🎩', run:'🏃', sit:'🪑',
@@ -23,8 +19,6 @@ const EMOJI = {
   pork:'🥩', herb:'🌿', surf:'🏄',
 };
 
-const imageCache = {};
-
 let currentLevel = 'CVC';
 let deck = [];
 let index = 0;
@@ -32,7 +26,6 @@ let currentWord = '';
 
 const cardInner   = document.getElementById('cardInner');
 const wordDisplay = document.getElementById('wordDisplay');
-const backImage   = document.getElementById('backImage');
 const backEmoji   = document.getElementById('backEmoji');
 const backWord    = document.getElementById('backWord');
 const counter     = document.getElementById('counter');
@@ -46,73 +39,23 @@ function shuffle(arr) {
   return arr;
 }
 
-function resetBack() {
-  backImage.style.display = 'none';
-  backImage.src = '';
-  backImage.classList.remove('bounce');
-  backEmoji.style.display = 'none';
-  backEmoji.textContent = '';
-  backEmoji.classList.remove('bounce');
-  backWord.textContent = '';
-}
-
 function showCard(i) {
   currentWord = deck[i];
   wordDisplay.textContent = currentWord;
   cardInner.classList.remove('flipped');
   counter.textContent = `${i + 1} / ${deck.length}`;
-  resetBack();
+  backEmoji.textContent = '';
+  backEmoji.classList.remove('bounce');
+  backWord.textContent = '';
 }
 
-function triggerBounce(el) {
-  el.classList.remove('bounce');
-  void el.offsetWidth; // force reflow so animation restarts
-  el.classList.add('bounce');
-}
-
-function showImage(url) {
-  backImage.src = url;
-  backImage.alt = currentWord;
-  backImage.style.display = 'block';
-  backEmoji.style.display = 'none';
-  backWord.textContent = currentWord;
-  triggerBounce(backImage);
-}
-
-function showFallback(word) {
+function showEmoji(word) {
   const emoji = EMOJI[word] ?? '❓';
+  backEmoji.classList.remove('bounce');
+  void backEmoji.offsetWidth;
   backEmoji.textContent = emoji;
-  backEmoji.style.display = 'block';
-  backImage.style.display = 'none';
+  backEmoji.classList.add('bounce');
   backWord.textContent = word;
-  triggerBounce(backEmoji);
-}
-
-async function fetchImage(word) {
-  if (imageCache[word] === null) { showFallback(word); return; }
-  if (imageCache[word])          { showImage(imageCache[word]); return; }
-
-  if (!PEXELS_KEY || PEXELS_KEY === 'YOUR_KEY_HERE') {
-    showFallback(word);
-    return;
-  }
-
-  try {
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(word)}&per_page=1&orientation=square`;
-    const res  = await fetch(url, { headers: { Authorization: PEXELS_KEY } });
-    const data = await res.json();
-    const photo = data.photos?.[0];
-    if (photo) {
-      imageCache[word] = photo.src.medium;
-      showImage(photo.src.medium);
-    } else {
-      imageCache[word] = null;
-      showFallback(word);
-    }
-  } catch {
-    imageCache[word] = null;
-    showFallback(word);
-  }
 }
 
 function loadLevel(level) {
@@ -122,13 +65,32 @@ function loadLevel(level) {
   showCard(0);
 }
 
-// Card flip
+let touchStartX = 0, touchStartY = 0, swipeHandled = false;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  swipeHandled = false;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    swipeHandled = true;
+    index = dx < 0
+      ? (index + 1) % deck.length
+      : (index - 1 + deck.length) % deck.length;
+    showCard(index);
+  }
+}, { passive: true });
+
 cardInner.addEventListener('click', () => {
+  if (swipeHandled) { swipeHandled = false; return; }
   cardInner.classList.toggle('flipped');
-  if (cardInner.classList.contains('flipped')) fetchImage(currentWord);
+  if (cardInner.classList.contains('flipped')) showEmoji(currentWord);
 });
 
-// Prev / Next
 document.getElementById('prevBtn').addEventListener('click', (e) => {
   e.stopPropagation();
   index = (index - 1 + deck.length) % deck.length;
@@ -141,15 +103,12 @@ document.getElementById('nextBtn').addEventListener('click', (e) => {
   showCard(index);
 });
 
-// Shuffle
 document.getElementById('shuffleBtn').addEventListener('click', () => {
   deck = shuffle([...LEVELS[currentLevel]]);
   index = 0;
   showCard(0);
 });
 
-// Level change
 levelSelect.addEventListener('change', () => loadLevel(levelSelect.value));
 
-// Init
 loadLevel('CVC');

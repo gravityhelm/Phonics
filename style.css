@@ -187,7 +187,7 @@ h1 {
 }
 
 .word-display {
-  font-size: clamp(3.5rem, 14vw, 6.5rem);
+  font-size: clamp(4.5rem, 16vw, 8rem);
   font-weight: 900;
   color: #1a1a2e;
   letter-spacing: 0.06em;
@@ -213,7 +213,7 @@ h1 {
 }
 
 #backWord {
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: #9ca3af;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -277,7 +277,7 @@ h1 {
 
 /* ── Sentence mode ── */
 body.sentence-mode .word-display {
-  font-size: clamp(1.2rem, 3.8vw, 2rem);
+  font-size: clamp(1.8rem, 5.5vw, 3.2rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   text-align: center;

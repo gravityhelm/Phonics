@@ -332,8 +332,7 @@ body.sentence-mode #backWord {
 
   .card-wrapper {
     height: calc(100dvh - 54px);
-    width: auto;
-    max-width: 90vw;
+    width: 80vw;
     min-height: unset;
   }
 
